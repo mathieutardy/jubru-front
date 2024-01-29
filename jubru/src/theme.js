@@ -4,16 +4,15 @@ const getTheme = (mode) => createTheme({
   palette: {
     mode: mode,
     background: {
-      primary: mode === 'light' ? '#FFFFFF' : '#181818',
-    },
-    primary: {
-      main: '#1D9DD9'
+      primary: mode === 'light' ? '#FFFFFF' : '#1F1F1F',
+      secondary: mode === 'light' ? '#FFFFFF' : '#121212',
+      third: mode === 'light' ? '#ECECEC' : '#02BBFF',
     },
     text: {
       primary:'#1D9DD9',
     },
     icon: {
-      main: mode === 'light' ? '#707070' : '#D7D7D7',
+      main: mode === 'light' ? '#707070' : '#FFFFFF',
     },
   },
   typography: {

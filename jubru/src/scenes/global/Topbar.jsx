@@ -9,7 +9,6 @@ const Topbar = ({ theme, toggleTheme }) => {
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
         My TopBar
       </Typography>
-
       <IconButton onClick={toggleTheme} color="inherit">
         {theme === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>

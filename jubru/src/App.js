@@ -5,6 +5,8 @@ import getTheme from './theme';
 import Sidebar from './scenes/global/Sidebar';
 import Topbar from './scenes/global/Topbar';
 import Dashboard from './components/Dashboard';
+import { CssBaseline } from "@mui/material";
+
 
 const App = () => {
   const [mode, setMode] = useState('light');
@@ -12,15 +14,17 @@ const App = () => {
   const toggleMode = () => {
     setMode(prevMode => prevMode === 'light' ? 'dark' : 'light');
   };
+  const theme = getTheme(mode);
 
   return (
-    <ThemeProvider theme={getTheme(mode)}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <div className="App">
-          <Topbar theme={mode} toggleTheme={toggleMode} />
-          <Sidebar />
+          <Topbar theme = {mode} toggleTheme={toggleMode} />
+          <Sidebar/>
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard/>} />
           </Routes>
         </div>
       </Router>

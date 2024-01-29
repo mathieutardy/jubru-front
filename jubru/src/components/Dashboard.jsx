@@ -6,6 +6,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
+
 async function fetchYourApi() {
   try {
     const response = await fetch('http://127.0.0.1:8000/read_user_portfolio_value?user_id=1');
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
   const theme = useTheme();
+
 
   useEffect(() => {
     fetchYourApi().then(data => setData1(data));
@@ -51,7 +53,7 @@ const Dashboard = () => {
       <Button 
       variant="contained" 
       onClick={updatePortfolio} 
-      style={{ marginBottom: 20 }}
+      style={{ marginBottom: 20, backgroundcolor : theme.palette.background.third}}
       >
       Update Portfolio
       </Button>

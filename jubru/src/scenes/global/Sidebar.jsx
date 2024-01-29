@@ -7,6 +7,7 @@ import PieChartIcon from '@mui/icons-material/PieChart';
 import LogoIcon from '../../assets/icon.png';
 
 const Sidebar = () => {
+  
   return (
     <Drawer variant="permanent" anchor="left">
       <Box display="flex" alignItems="center" padding={2}>
