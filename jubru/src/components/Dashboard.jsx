@@ -1,38 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Card, CardContent, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import PerformanceCard from './PerformanceCard';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
-
-const drawerWidth = 240
+async function fetchYourApi() {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/read_user_portfolio_value?user_id=1');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    return null;
+  }
+}
 
 const Dashboard = () => {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
-  const [data3, setData3] = useState(null);
+  const theme = useTheme();
 
-  // Example API calls (replace with your actual API calls)
   useEffect(() => {
-    // Fetch data for first box
-    fetchYourApi1().then(data => setData1(data));
+    fetchYourApi().then(data => setData1(data));
 
-    // Fetch data for second box
-    fetchYourApi2().then(data => setData2(data));
-
-    // Fetch data for third box
-    fetchYourApi3().then(data => setData3(data));
+    fetchYourApi().then(data => setData2(data));
   }, []);
 
+  async function updatePortfolio() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/update_portfolio');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      // Handle the response here. For example, you might want to refetch portfolio data
+      console.log("Portfolio updated");
+      fetchYourApi().then(data => setData1(data));
+      fetchYourApi().then(data => setData2(data));
+    } catch (error) {
+      console.error("Failed to update portfolio:", error);
+    }
+  }
+
   return (
-    <div style={{ marginLeft: drawerWidth, marginRight: 100 }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <PerformanceCard title="Card 1" number={data1 ? data1.number : null} description="This is card 1 description" />
+    <div style={{ marginLeft: 240, marginRight: 100}}>
+      <Button 
+      variant="contained" 
+      onClick={updatePortfolio} 
+      style={{ marginBottom: 20 }}
+      >
+      Update Portfolio
+      </Button>
+      <Grid container spacing={12}>
+        <Grid item xs={12} md={6}>
+          <PerformanceCard title="Value" icon={AccountBalanceWalletIcon} number={data1 ? data1: null} description="Portfolio value change (EUR)" />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <PerformanceCard title="Card 2" number={data2 ? data2.number : null} description="This is card 2 description" />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <PerformanceCard title="Card 3" number={data3 ? data3.number : null} description="This is card 3 description" />
+        <Grid item xs={12} md={6}>
+          <PerformanceCard title="Change" icon={TrendingUpIcon} number={data1 ? data1: null} description="Portfolio value change (%)" />
         </Grid>
       </Grid>
     </div>
@@ -41,15 +69,3 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-// Replace these with your actual API call functions
-async function fetchYourApi1() {
-  // Fetch data from API and return
-}
-
-async function fetchYourApi2() {
-  // Fetch data from API and return
-}
-
-async function fetchYourApi3() {
-  // Fetch data from API and return
-}
