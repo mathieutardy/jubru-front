@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, Divider, Typography } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import LogoIcon from '../../assets/icon.png';
-
 
 const Sidebar = () => {
   return (
@@ -15,17 +15,20 @@ const Sidebar = () => {
       </Box>
       <Divider />
       <List>
-        {['Dashboard', 'Transactions', 'Portfolio'].map((text, index) => (
-          <ListItem key={text}>
-            <ListItemIcon>
-              {index === 0 ? <DashboardIcon /> : index === 1 ? <AccountBalanceWalletIcon /> : <PieChartIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button component={Link} to="/dashboard">
+          <ListItemIcon><DashboardIcon /></ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+        <ListItem button component={Link} to="/transactions">
+          <ListItemIcon><AccountBalanceWalletIcon /></ListItemIcon>
+          <ListItemText primary="Transactions" />
+        </ListItem>
+        <ListItem button component={Link} to="/portfolio">
+          <ListItemIcon><PieChartIcon /></ListItemIcon>
+          <ListItemText primary="Portfolio" />
+        </ListItem>
       </List>
     </Drawer>
   );
 };
-
 export default Sidebar;
