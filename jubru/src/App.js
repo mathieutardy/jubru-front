@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import getTheme from './theme';
 import Sidebar from './scenes/global/Sidebar';
 import Topbar from './scenes/global/Topbar';
-import Dashboard from './components/Dashboard';
+import Dashboard from './scenes/Dashboard';
 import { CssBaseline } from "@mui/material";
 
 
