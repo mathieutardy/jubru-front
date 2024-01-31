@@ -10,9 +10,9 @@ const PerformanceCard = ({ number, description, title, icon: Icon, showArrow = f
   const getNumberColor = () => {
     if (showArrow) {
       if (number > 0) {
-        return 'green';
+        return theme.palette.icon.green;
       } else if (number < 0) {
-        return 'red';
+        return theme.palette.icon.red;
       }
     }
     return theme.palette.text.primary;
@@ -21,9 +21,9 @@ const PerformanceCard = ({ number, description, title, icon: Icon, showArrow = f
   const renderArrow = () => {
     const arrowStyle = { verticalAlign: 'middle', fontSize: '1em', marginRight: '5px' };
     if (number > 0) {
-      return <ArrowUpwardIcon style={{ ...arrowStyle, color: 'green' }} />;
+      return <ArrowUpwardIcon style={{ ...arrowStyle, color: theme.palette.icon.green }} />;
     } else if (number < 0) {
-      return <ArrowDownwardIcon style={{ ...arrowStyle, color: 'red' }} />;
+      return <ArrowDownwardIcon style={{ ...arrowStyle, color: theme.palette.icon.red }} />;
     }
     return null;
   };
@@ -37,7 +37,7 @@ const PerformanceCard = ({ number, description, title, icon: Icon, showArrow = f
             <Typography variant="h6" color={theme.palette.text.primary}>{title}</Typography>
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right' }}>
-            <Typography variant="h4" color={getNumberColor()} component="span">
+            <Typography variant="h4" color={getNumberColor()} component="span" >
               {showArrow && renderArrow()}
               {number !== null ? number : 'Loading...'}
             </Typography>
