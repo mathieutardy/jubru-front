@@ -5,6 +5,7 @@ import getTheme from './theme';
 import Sidebar from './scenes/global/Sidebar';
 import Topbar from './scenes/global/Topbar';
 import Dashboard from './scenes/Dashboard';
+import MyPortfolio from './components/MyPortfolio';
 import { CssBaseline } from "@mui/material";
 
 
@@ -25,6 +26,7 @@ const App = () => {
           <Sidebar/>
           <Routes>
             <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path="/portfolio" element={<MyPortfolio/>} />
           </Routes>
         </div>
       </Router>
