@@ -80,10 +80,10 @@ const Dashboard = () => {
           <PerformanceCard title="Value (€)" icon={AccountBalanceWalletIcon} number={data.portfolio_value} description="Total (€)" />
         </Grid>
         <Grid item xs={12} md={4}>
-          <PerformanceCard title="Change (€)" icon={TrendingUpIcon} number={data.value_change} description="Value change (€)" />
+          <PerformanceCard title="Change (€)" icon={TrendingUpIcon} number={data.value_change} description="Value change (€)" showArrow={true} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <PerformanceCard title="Change (%)" icon={PercentIcon} number={data.pct_change} description="Value change (%)" />
+          <PerformanceCard title="Change (%)" icon={PercentIcon} number={data.pct_change} description="Value change (%)" showArrow={true} />
         </Grid>
       </Grid>
     </div>
