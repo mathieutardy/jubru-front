@@ -1,24 +1,19 @@
+// Portfolio.js
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { fetchValueChange } from "../utils/apiCalls";
+import { Grid } from "@mui/material";
+import TimePeriodSelector from "../components/TimePeriodSelector";
+import PortfolioChangeTable from "../components/PortfolioChangeTable";
+import { fetchPortfolioValueChange } from "../utils/apiCalls";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 150 },
-  { field: "ticker", headerName: "Ticker", width: 150 },
-  { field: "quantity", headerName: "Quantity", width: 130 },
-  { field: "value", headerName: "Value", width: 130 },
-  { field: "price", headerName: "Price", width: 130 },
-  { field: "price_change", headerName: "Price Change", width: 150 },
-  { field: "value_change", headerName: "Value Change", width: 150 },
-];
-
-const Portfolio = ({ days }) => {
+const Portfolio = () => {
+  const [days, setDays] = useState(1);
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchValueChange(days);
+      const data = await fetchPortfolioValueChange(days);
       if (data) {
+        console.log("data", data);
         setRows(data);
       }
     };
@@ -26,16 +21,19 @@ const Portfolio = ({ days }) => {
     fetchData();
   }, [days]);
 
+  const handleTimePeriodChange = (newDays) => {
+    setDays(newDays);
+  };
+
   return (
-    <div style={{ height: 400, width: "100%", marginTop: "40px" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
+    <Grid container spacing={3} style={{ marginTop: "40px" }}>
+      <Grid item xs={12} mr={4} style={{ textAlign: "right" }}>
+        <TimePeriodSelector onTimePeriodChange={handleTimePeriodChange} />
+      </Grid>
+      <Grid item xs={12} style={{ height: 400, width: "100%" }}>
+        <PortfolioChangeTable rows={rows} />
+      </Grid>
+    </Grid>
   );
 };
 
