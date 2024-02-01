@@ -114,16 +114,16 @@ const Dashboard = () => {
           <PerformanceCard
             title="Value (€)"
             icon={AccountBalanceWalletIcon}
-            number={data.portfolio_value}
-            description="Total (€)"
+            number={`${data.portfolio_value}€`}
+            description="Total"
           />
         </Grid>
         <Grid item xs={12} md={4}>
           <PerformanceCard
             title="Change (€)"
             icon={TrendingUpIcon}
-            number={data.value_change}
-            description={`${selectedDays} days change (€)`}
+            number={`${data.value_change}€`}
+            description={`${selectedDays} days change`}
             showArrow={true}
           />
         </Grid>
@@ -131,8 +131,8 @@ const Dashboard = () => {
           <PerformanceCard
             title="Change (%)"
             icon={PercentIcon}
-            number={data.pct_change}
-            description={`${selectedDays} days change (%)`}
+            number={`${data.pct_change}%`}
+            description={`${selectedDays} days change`}
             showArrow={true}
           />
         </Grid>
