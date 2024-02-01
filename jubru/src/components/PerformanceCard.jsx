@@ -51,19 +51,7 @@ const PerformanceCard = ({
       <CardContent>
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={6} style={{ display: "flex", alignItems: "center" }}>
-            <div
-              style={{
-                borderRadius: "50%",
-                width: "70px",
-                height: "70px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: theme.palette.background.third,
-              }}
-            >
-              <Icon style={{ fontSize: 60, color: theme.palette.icon.main }} />
-            </div>
+            <Icon style={{ fontSize: 60, color: theme.palette.icon.main }} />
           </Grid>
           <Grid item xs={6} style={{ textAlign: "right" }}>
             <Typography variant="h4" color={getNumberColor()} component="span">

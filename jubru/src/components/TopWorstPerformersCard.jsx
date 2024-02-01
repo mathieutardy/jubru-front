@@ -17,7 +17,7 @@ const TopWorstPerformersCard = ({ ticker, priceChange }) => {
 
   const cardStyle = {
     backgroundColor: getColor(),
-    marginTop: "30px",
+    marginTop: "10px",
     color: theme.palette.text.blackwhite,
   };
   return (

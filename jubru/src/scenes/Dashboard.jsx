@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Button, ButtonGroup } from "@mui/material";
+import { Grid, Button, Box, Typography } from "@mui/material";
 import PerformanceCard from "../components/PerformanceCard";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PercentIcon from "@mui/icons-material/Percent";
@@ -114,23 +114,54 @@ const Dashboard = () => {
         </Grid>
       </Grid>
       <Grid container spacing={6}>
-        {topWorstPerformers.slice(0, 3).map((position, index) => (
-          <Grid item xs={2} key={index}>
-            <TopWorstPerformersCard
-              ticker={position.ticker}
-              priceChange={position.price_change}
-            />
-          </Grid>
-        ))}
-        {topWorstPerformers.slice(-3).map((position, index) => (
-          <Grid item xs={2} key={index}>
-            <TopWorstPerformersCard
-              ticker={position.ticker}
-              priceChange={position.price_change}
-            />
-          </Grid>
-        ))}
+        <Grid item xs={6}>
+          <Box
+            style={{
+              backgroundColor: theme.palette.background.primary,
+              padding: "10px",
+              marginTop: "30px",
+            }}
+          >
+            <Typography style={{ color: theme.palette.text.primary }}>
+              Top Performers
+            </Typography>
+            <Grid container spacing={2}>
+              {topWorstPerformers.slice(0, 3).map((position, index) => (
+                <Grid item xs={4} key={index}>
+                  <TopWorstPerformersCard
+                    ticker={position.ticker}
+                    priceChange={position.price_change}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box
+            style={{
+              backgroundColor: theme.palette.background.primary,
+              padding: "10px",
+              marginTop: "30px",
+            }}
+          >
+            <Typography style={{ color: theme.palette.text.primary }}>
+              Worst Performers
+            </Typography>
+            <Grid container spacing={2}>
+              {topWorstPerformers.slice(-3).map((position, index) => (
+                <Grid item xs={4} key={index}>
+                  <TopWorstPerformersCard
+                    ticker={position.ticker}
+                    priceChange={position.price_change}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Grid>
       </Grid>
+
       <Grid container spacing={6}>
         <Grid item xs={8} md={8}>
           <PortfolioChangeTable rows={portfolioChange} />
