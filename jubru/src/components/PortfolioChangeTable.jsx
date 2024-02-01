@@ -42,7 +42,7 @@ const PortfolioChangeTable = ({ rows }) => {
   ];
 
   return (
-    <div style={{ height: "100%", width: "100%", marginTop: "40px" }}>
+    <div style={{ height: "100%", width: "100%", marginTop: "20px" }}>
       <DataGrid rows={rows} columns={columns} checkboxSelection autoHeight />
     </div>
   );

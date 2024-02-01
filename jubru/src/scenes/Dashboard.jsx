@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import ListTopWorstPerformers from "../components/TopWorstPerformersCard";
 import DBPerformanceCards from "../components/DBPerformanceCards";
 import TimePeriodSelector from "../components/TimePeriodSelector";
 import PortfolioChangeTable from "../components/PortfolioChangeTable";
+import PositiveAndNegativeBarChart from "../components/PositiveNegativeBarChart";
 import {
   fetchTopWorstPerformers,
   fetchValueChange,
@@ -79,11 +80,21 @@ const Dashboard = () => {
       </Grid>
       <DBPerformanceCards data={data} selectedDays={selectedDays} />
       <ListTopWorstPerformers topWorstPerformers={topWorstPerformers} />
-      <Grid container spacing={6}>
-        <Grid item xs={8} md={8}>
-          <PortfolioChangeTable rows={portfolioChange} />
+      <Grid
+        container
+        spacing={6}
+        style={{ display: "flex", alignItems: "stretch" }}
+      >
+        <Grid item xs={8} md={8} style={{ display: "flex" }}>
+          <div style={{ flexGrow: 1 }}>
+            <PortfolioChangeTable rows={portfolioChange} />
+          </div>
         </Grid>
-        <Grid item xs={4} md={4}></Grid>
+        <Grid item xs={4} md={4} style={{ display: "flex" }}>
+          <div style={{ flexGrow: 1 }}>
+            <PositiveAndNegativeBarChart data={topWorstPerformers} />
+          </div>
+        </Grid>
       </Grid>
     </div>
   );

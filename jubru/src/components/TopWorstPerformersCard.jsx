@@ -42,6 +42,7 @@ const ListTopWorstPerformers = ({ topWorstPerformers }) => {
             backgroundColor: theme.palette.background.primary,
             padding: "10px",
             marginTop: "30px",
+            marginBottom: "20px",
           }}
         >
           <Typography style={{ color: theme.palette.text.primary }}>
