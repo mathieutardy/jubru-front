@@ -29,13 +29,13 @@ const PortfolioChangeTable = ({ rows }) => {
     { field: "value", headerName: "Value", width: 180 },
     {
       field: "price_change",
-      headerName: "Price Change",
+      headerName: "Price Change (%)",
       width: 180,
       renderCell: renderChangeCell,
     },
     {
       field: "value_change",
-      headerName: "Value Change",
+      headerName: "Value Change (€)",
       width: 180,
       renderCell: renderChangeCell,
     },
