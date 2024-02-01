@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Button, Box, Typography } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import ListTopWorstPerformers from "../components/TopWorstPerformersCard";
 import DBPerformanceCards from "../components/DBPerformanceCards";
