@@ -15,7 +15,6 @@ const TimePeriodSelector = ({ onTimePeriodChange }) => {
       <ButtonGroup size="small">
         {[1, 5, 30, 365, 365 * 5].map((days) => (
           <TimePeriodButton
-            key={days}
             days={days}
             onClick={() => handleTimePeriodChange(days)}
             isSelected={selectedDays === days}

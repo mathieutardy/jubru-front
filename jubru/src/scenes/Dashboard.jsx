@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Button, ButtonGroup } from "@mui/material";
 import PerformanceCard from "../components/PerformanceCard";
-import TimePeriodButton from "../components/TimePeriodButton";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PercentIcon from "@mui/icons-material/Percent";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { useTheme } from "@mui/material/styles";
 import TopWorstPerformersCard from "../components/TopWorstPerformersCard";
 import TimePeriodSelector from "../components/TimePeriodSelector";
+import PortfolioChangeTable from "../components/PortfolioChangeTable";
 import {
   fetchTopWorstPerformers,
   fetchValueChange,
+  fetchPortfolioValueChange,
   BASE_URL,
   USER_ID,
 } from "../utils/apiCalls";
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const theme = useTheme();
   const [selectedDays, setSelectedDays] = useState(null);
   const [topWorstPerformers, setTopWorstPerformers] = useState([]);
+  const [portfolioChange, setPortfolioValueChange] = useState([]);
 
   const fetchData = async (days) => {
     try {
@@ -31,6 +33,9 @@ const Dashboard = () => {
       setData(valueChangeData);
       const fetchedTopWorstPerformers = await fetchTopWorstPerformers(days);
       setTopWorstPerformers(fetchedTopWorstPerformers);
+      const fetchedPortfolioValueChange = await fetchPortfolioValueChange(days);
+      setPortfolioValueChange(fetchedPortfolioValueChange);
+      console.log(portfolioChange);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -125,6 +130,12 @@ const Dashboard = () => {
             />
           </Grid>
         ))}
+      </Grid>
+      <Grid container spacing={6}>
+        <Grid item xs={8} md={8}>
+          <PortfolioChangeTable rows={portfolioChange} />
+        </Grid>
+        <Grid item xs={4} md={4}></Grid>
       </Grid>
     </div>
   );

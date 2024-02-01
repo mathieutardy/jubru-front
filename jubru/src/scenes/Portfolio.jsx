@@ -6,32 +6,36 @@ import PortfolioChangeTable from "../components/PortfolioChangeTable";
 import { fetchPortfolioValueChange } from "../utils/apiCalls";
 
 const Portfolio = () => {
-  const [days, setDays] = useState(1);
-  const [rows, setRows] = useState([]);
+  const [rowsPortfolioValue, setPortfolioValueChange] = useState([]);
+
+  const fetchData = async (days) => {
+    try {
+      const fetchedPortfolioValueChange = await fetchPortfolioValueChange(days);
+      setPortfolioValueChange(fetchedPortfolioValueChange);
+      console.log(rowsPortfolioValue);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchPortfolioValueChange(days);
-      if (data) {
-        console.log("data", data);
-        setRows(data);
-      }
-    };
-
-    fetchData();
-  }, [days]);
-
-  const handleTimePeriodChange = (newDays) => {
-    setDays(newDays);
-  };
+    fetchData(1);
+  }, []);
 
   return (
     <Grid container spacing={3} style={{ marginTop: "40px" }}>
-      <Grid item xs={12} mr={4} style={{ textAlign: "right" }}>
-        <TimePeriodSelector onTimePeriodChange={handleTimePeriodChange} />
+      <Grid item xs={12} style={{ textAlign: "right", marginRight: "40px" }}>
+        <TimePeriodSelector onTimePeriodChange={fetchData} />
       </Grid>
-      <Grid item xs={12} style={{ height: 400, width: "100%" }}>
-        <PortfolioChangeTable rows={rows} />
+      <Grid item xs={12} style={{ justifyContent: "center" }}>
+        <div
+          style={{
+            maxWidth: "1500px",
+            marginLeft: "200px",
+          }}
+        >
+          <PortfolioChangeTable rows={rowsPortfolioValue} />
+        </div>
       </Grid>
     </Grid>
   );
