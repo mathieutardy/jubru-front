@@ -12,7 +12,6 @@ const Portfolio = () => {
     try {
       const fetchedPortfolioValueChange = await fetchPortfolioValueChange(days);
       setPortfolioValueChange(fetchedPortfolioValueChange);
-      console.log(rowsPortfolioValue);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

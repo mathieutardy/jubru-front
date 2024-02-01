@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Button, Box, Typography } from "@mui/material";
-import PerformanceCard from "../components/PerformanceCard";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import PercentIcon from "@mui/icons-material/Percent";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { useTheme } from "@mui/material/styles";
 import TopWorstPerformersCard from "../components/TopWorstPerformersCard";
+import DBPerformanceCards from "../components/DBPerformanceCards";
 import TimePeriodSelector from "../components/TimePeriodSelector";
 import PortfolioChangeTable from "../components/PortfolioChangeTable";
 import {
@@ -28,18 +25,12 @@ const Dashboard = () => {
   const [portfolioChange, setPortfolioValueChange] = useState([]);
 
   const fetchData = async (days) => {
-    try {
-      const valueChangeData = await fetchValueChange(days);
-      setData(valueChangeData);
-      const fetchedTopWorstPerformers = await fetchTopWorstPerformers(days);
-      setTopWorstPerformers(fetchedTopWorstPerformers);
-      const fetchedPortfolioValueChange = await fetchPortfolioValueChange(days);
-      setPortfolioValueChange(fetchedPortfolioValueChange);
-      console.log(portfolioChange);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-
+    const valueChangeData = await fetchValueChange(days);
+    setData(valueChangeData);
+    const fetchedTopWorstPerformers = await fetchTopWorstPerformers(days);
+    setTopWorstPerformers(fetchedTopWorstPerformers);
+    const fetchedPortfolioValueChange = await fetchPortfolioValueChange(days);
+    setPortfolioValueChange(fetchedPortfolioValueChange);
     setSelectedDays(days);
   };
 
@@ -51,7 +42,6 @@ const Dashboard = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      console.log("Portfolio updated");
       fetchData(1);
     } catch (error) {
       console.error("Failed to update portfolio:", error);
@@ -76,6 +66,7 @@ const Dashboard = () => {
             onClick={updatePortfolio}
             style={{
               marginBottom: 20,
+
               color: theme.palette.text.primary,
               backgroundColor: theme.palette.background.third,
             }}
@@ -85,34 +76,7 @@ const Dashboard = () => {
         </Grid>
         <TimePeriodSelector onTimePeriodChange={fetchData} />
       </Grid>
-      <Grid container spacing={12}>
-        <Grid item xs={12} md={4}>
-          <PerformanceCard
-            title="Value (€)"
-            icon={AccountBalanceWalletIcon}
-            number={`${data.portfolio_value}€`}
-            description="Total"
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <PerformanceCard
-            title="Change (€)"
-            icon={TrendingUpIcon}
-            number={`${data.value_change}€`}
-            description={`${selectedDays} days change`}
-            showArrow={true}
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <PerformanceCard
-            title="Change (%)"
-            icon={PercentIcon}
-            number={`${data.pct_change}%`}
-            description={`${selectedDays} days change`}
-            showArrow={true}
-          />
-        </Grid>
-      </Grid>
+      <DBPerformanceCards data={data} selectedDays={selectedDays} />
       <Grid container spacing={6}>
         <Grid item xs={6}>
           <Box
