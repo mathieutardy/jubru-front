@@ -30,11 +30,11 @@ const Dashboard = () => {
     setPositions(fetchedPositions);
   };
 
-  // Function to fetch data and set state
   const fetchDataForDays = (days) => {
     fetchValueChange(days).then((data) => setData(data));
     setLastClicked(days);
     setSelectedDays(days);
+    fetchPositionsForDays(days);
   };
 
   async function updatePortfolio() {
@@ -137,13 +137,12 @@ const Dashboard = () => {
           />
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={6}>
         {positions.slice(0, 3).map((position, index) => (
           <Grid item xs={2} key={index}>
             <TopWorstPerformersCard
               ticker={position.ticker}
               priceChange={position.price_change}
-              isTopPerformer={true}
             />
           </Grid>
         ))}
@@ -152,7 +151,6 @@ const Dashboard = () => {
             <TopWorstPerformersCard
               ticker={position.ticker}
               priceChange={position.price_change}
-              isTopPerformer={false}
             />
           </Grid>
         ))}

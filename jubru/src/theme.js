@@ -11,6 +11,7 @@ const getTheme = (mode) =>
       },
       text: {
         primary: blue[500],
+        blackwhite: mode === "light" ? white[500] : black[500],
       },
       icon: {
         main: mode === "light" ? grey[500] : white[500],
@@ -41,7 +42,7 @@ const grey = {
   900: "#161616",
 };
 
-const black = {
+export const black = {
   100: "#d0d0d0",
   200: "#a0a0a0",
   300: "#717171",
@@ -89,7 +90,7 @@ const white = {
   900: "#333333",
 };
 
-const green = {
+export const green = {
   100: "#d5ecd9",
   200: "#abd9b3",
   300: "#81c68e",
@@ -101,7 +102,7 @@ const green = {
   900: "#09200d",
 };
 
-const red = {
+export const red = {
   100: "#efcdcf",
   200: "#df9b9f",
   300: "#d0696e",
