@@ -4,13 +4,16 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
+import { useTheme } from "@mui/material/styles";
 
 const PositiveAndNegativeBarChart = ({ data }) => {
+  const theme = useTheme();
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
@@ -22,12 +25,21 @@ const PositiveAndNegativeBarChart = ({ data }) => {
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="ticker" />
         <YAxis />
         <Tooltip />
-        <Legend />
-        <Bar dataKey="value_change" fill="#8884d8" />
+        <Bar dataKey="value_change">
+          {data.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={
+                entry.value_change > 0
+                  ? theme.palette.icon.green
+                  : theme.palette.icon.red
+              }
+            />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );

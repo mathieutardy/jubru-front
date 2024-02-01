@@ -6,8 +6,8 @@ import { useTheme } from "@mui/material/styles";
 const TopWorstPerformersCard = ({ ticker, priceChange }) => {
   const getColor = () => {
     if (priceChange > 1) return green[500];
-    if (priceChange > 0.5) return green[300];
-    if (priceChange > 0) return green[100];
+    if (priceChange > 0.5) return green[400];
+    if (priceChange > 0) return green[300];
     if (priceChange < -3) return red[700];
     if (priceChange < -1) return red[600];
     return red[100];
