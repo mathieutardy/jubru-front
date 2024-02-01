@@ -7,8 +7,9 @@ import PercentIcon from "@mui/icons-material/Percent";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { useTheme } from "@mui/material/styles";
 import TopWorstPerformersCard from "../components/TopWorstPerformersCard";
+import TimePeriodSelector from "../components/TimePeriodSelector";
 import {
-  fetchPositionsChange,
+  fetchTopWorstPerformers,
   fetchValueChange,
   BASE_URL,
   USER_ID,
@@ -21,20 +22,20 @@ const Dashboard = () => {
     pct_change: 0,
   });
   const theme = useTheme();
-  const [lastClicked, setLastClicked] = useState(null);
   const [selectedDays, setSelectedDays] = useState(null);
-  const [positions, setPositions] = useState([]);
+  const [topWorstPerformers, setTopWorstPerformers] = useState([]);
 
-  const fetchPositionsForDays = async (days) => {
-    const fetchedPositions = await fetchPositionsChange(days);
-    setPositions(fetchedPositions);
-  };
+  const fetchData = async (days) => {
+    try {
+      const valueChangeData = await fetchValueChange(days);
+      setData(valueChangeData);
+      const fetchedTopWorstPerformers = await fetchTopWorstPerformers(days);
+      setTopWorstPerformers(fetchedTopWorstPerformers);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
 
-  const fetchDataForDays = (days) => {
-    fetchValueChange(days).then((data) => setData(data));
-    setLastClicked(days);
     setSelectedDays(days);
-    fetchPositionsForDays(days);
   };
 
   async function updatePortfolio() {
@@ -46,16 +47,14 @@ const Dashboard = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       console.log("Portfolio updated");
-      fetchDataForDays(5); // Fetch new data after update
+      fetchData(1);
     } catch (error) {
       console.error("Failed to update portfolio:", error);
     }
   }
 
-  // Initial data fetch
   useEffect(() => {
-    fetchDataForDays(1);
-    fetchPositionsForDays(1);
+    fetchData(1);
   }, []);
 
   return (
@@ -79,35 +78,7 @@ const Dashboard = () => {
             Update Portfolio
           </Button>
         </Grid>
-        <Grid item>
-          <ButtonGroup size="small">
-            <TimePeriodButton
-              days={1}
-              onClick={fetchDataForDays}
-              isSelected={lastClicked === 1}
-            />
-            <TimePeriodButton
-              days={5}
-              onClick={fetchDataForDays}
-              isSelected={lastClicked === 5}
-            />
-            <TimePeriodButton
-              days={30}
-              onClick={fetchDataForDays}
-              isSelected={lastClicked === 30}
-            />
-            <TimePeriodButton
-              days={365}
-              onClick={fetchDataForDays}
-              isSelected={lastClicked === 365}
-            />
-            <TimePeriodButton
-              days={365 * 5}
-              onClick={fetchDataForDays}
-              isSelected={lastClicked === 365 * 5}
-            />
-          </ButtonGroup>
-        </Grid>
+        <TimePeriodSelector onTimePeriodChange={fetchData} />
       </Grid>
       <Grid container spacing={12}>
         <Grid item xs={12} md={4}>
@@ -138,7 +109,7 @@ const Dashboard = () => {
         </Grid>
       </Grid>
       <Grid container spacing={6}>
-        {positions.slice(0, 3).map((position, index) => (
+        {topWorstPerformers.slice(0, 3).map((position, index) => (
           <Grid item xs={2} key={index}>
             <TopWorstPerformersCard
               ticker={position.ticker}
@@ -146,7 +117,7 @@ const Dashboard = () => {
             />
           </Grid>
         ))}
-        {positions.slice(-3).map((position, index) => (
+        {topWorstPerformers.slice(-3).map((position, index) => (
           <Grid item xs={2} key={index}>
             <TopWorstPerformersCard
               ticker={position.ticker}

@@ -1,7 +1,7 @@
 export const BASE_URL = "http://localhost:8000";
 export const USER_ID = 1;
 
-export async function fetchPositionsChange(days) {
+export async function fetchTopWorstPerformers(days) {
   try {
     const response = await fetch(
       `${BASE_URL}/top_worst_positions?days=${days}`
