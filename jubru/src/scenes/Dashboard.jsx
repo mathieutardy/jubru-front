@@ -6,26 +6,13 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PercentIcon from "@mui/icons-material/Percent";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { useTheme } from "@mui/material/styles";
-
-// Constants
-const BASE_URL = "http://localhost:8000";
-const USER_ID = 1;
-
-// Fetch function for value change
-async function fetchValueChange(days) {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/get_value_change?user_id=${USER_ID}&days=${days}`
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  } catch (error) {
-    console.error("Failed to fetch data:", error);
-    return null;
-  }
-}
+import TopWorstPerformersCard from "../components/TopWorstPerformersCard";
+import {
+  fetchPositionsChange,
+  fetchValueChange,
+  BASE_URL,
+  USER_ID,
+} from "../utils/apiCalls";
 
 const Dashboard = () => {
   const [data, setData] = useState({
@@ -36,6 +23,12 @@ const Dashboard = () => {
   const theme = useTheme();
   const [lastClicked, setLastClicked] = useState(null);
   const [selectedDays, setSelectedDays] = useState(null);
+  const [positions, setPositions] = useState([]);
+
+  const fetchPositionsForDays = async (days) => {
+    const fetchedPositions = await fetchPositionsChange(days);
+    setPositions(fetchedPositions);
+  };
 
   // Function to fetch data and set state
   const fetchDataForDays = (days) => {
@@ -44,7 +37,6 @@ const Dashboard = () => {
     setSelectedDays(days);
   };
 
-  // Fetch function for updating portfolio
   async function updatePortfolio() {
     try {
       const response = await fetch(
@@ -63,6 +55,7 @@ const Dashboard = () => {
   // Initial data fetch
   useEffect(() => {
     fetchDataForDays(1);
+    fetchPositionsForDays(1);
   }, []);
 
   return (
@@ -143,6 +136,26 @@ const Dashboard = () => {
             showArrow={true}
           />
         </Grid>
+      </Grid>
+      <Grid container spacing={3}>
+        {positions.slice(0, 3).map((position, index) => (
+          <Grid item xs={2} key={index}>
+            <TopWorstPerformersCard
+              ticker={position.ticker}
+              priceChange={position.price_change}
+              isTopPerformer={true}
+            />
+          </Grid>
+        ))}
+        {positions.slice(-3).map((position, index) => (
+          <Grid item xs={2} key={index}>
+            <TopWorstPerformersCard
+              ticker={position.ticker}
+              priceChange={position.price_change}
+              isTopPerformer={false}
+            />
+          </Grid>
+        ))}
       </Grid>
     </div>
   );
