@@ -32,7 +32,6 @@ const TopWorstPerformersCard = ({ ticker, priceChange }) => {
 
 const ListTopWorstPerformers = ({ topWorstPerformers }) => {
   const theme = useTheme();
-  console.log(topWorstPerformers);
 
   return (
     <Grid container spacing={6}>

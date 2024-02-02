@@ -4,7 +4,7 @@ import PercentIcon from "@mui/icons-material/Percent";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { Grid } from "@mui/material";
 
-const DBPerformanceCards = ({ data, selectedDays }) => {
+const DBPerformanceCards = ({ data, selectedDays, unrealisedGains }) => {
   return (
     <Grid container spacing={12}>
       <Grid item xs={12} md={4}>
@@ -12,7 +12,7 @@ const DBPerformanceCards = ({ data, selectedDays }) => {
           title="Value (€)"
           icon={AccountBalanceWalletIcon}
           number={`${data.portfolio_value}€`}
-          description="Total"
+          description={`${unrealisedGains}€`}
         />
       </Grid>
       <Grid item xs={12} md={4}>

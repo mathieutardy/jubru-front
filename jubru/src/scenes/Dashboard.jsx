@@ -10,6 +10,7 @@ import {
   fetchTopWorstPerformers,
   fetchValueChange,
   fetchPortfolioValueChange,
+  fetchUnrealisedGains,
   BASE_URL,
   USER_ID,
 } from "../utils/apiCalls";
@@ -24,15 +25,18 @@ const Dashboard = () => {
   const [selectedDays, setSelectedDays] = useState(null);
   const [topWorstPerformers, setTopWorstPerformers] = useState([]);
   const [portfolioChange, setPortfolioValueChange] = useState([]);
+  const [unrealisedGains, setUnrealisedGains] = useState([]);
 
   const fetchData = async (days) => {
     const valueChangeData = await fetchValueChange(days);
     setData(valueChangeData);
     const fetchedTopWorstPerformers = await fetchTopWorstPerformers(days);
     setTopWorstPerformers(fetchedTopWorstPerformers);
-    console.log(topWorstPerformers);
     const fetchedPortfolioValueChange = await fetchPortfolioValueChange(days);
     setPortfolioValueChange(fetchedPortfolioValueChange);
+    const fetchedUnrealisedGains = await fetchUnrealisedGains();
+    setUnrealisedGains(fetchedUnrealisedGains);
+    console.log(unrealisedGains);
     setSelectedDays(days);
   };
 
@@ -78,7 +82,11 @@ const Dashboard = () => {
         </Grid>
         <TimePeriodSelector onTimePeriodChange={fetchData} />
       </Grid>
-      <DBPerformanceCards data={data} selectedDays={selectedDays} />
+      <DBPerformanceCards
+        data={data}
+        selectedDays={selectedDays}
+        unrealisedGains={unrealisedGains}
+      />
       <ListTopWorstPerformers topWorstPerformers={topWorstPerformers} />
       <Grid
         container
