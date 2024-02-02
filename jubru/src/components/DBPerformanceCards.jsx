@@ -12,7 +12,7 @@ const DBPerformanceCards = ({ data, selectedDays, unrealisedGains }) => {
           title="Value (€)"
           icon={AccountBalanceWalletIcon}
           number={`${data.portfolio_value}€`}
-          description={`${unrealisedGains}€`}
+          description={`Unrealised gains: ${unrealisedGains}€`}
         />
       </Grid>
       <Grid item xs={12} md={4}>

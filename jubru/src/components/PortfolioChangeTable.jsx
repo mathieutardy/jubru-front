@@ -26,7 +26,7 @@ const PortfolioChangeTable = ({ rows }) => {
     // { field: "id", headerName: "ID", width: 150},
     { field: "ticker", headerName: "Ticker", width: 180 },
     { field: "quantity", headerName: "Quantity", width: 180 },
-    { field: "value", headerName: "Value", width: 180 },
+    { field: "value", headerName: "Value (€)", width: 180 },
     {
       field: "price_change",
       headerName: "Price Change (%)",
